@@ -1,4 +1,8 @@
 # Ben-10-Cap-Lights
+<div id="header" align="center">
+  <img src = "Cap.jpg" width = 300 height = 300>
+  <img src = "Wrist.jpg" width = 300 height = 300>
+</div>
 
 # Installation 
 - download ledstriptest.ino
