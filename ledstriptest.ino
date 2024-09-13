@@ -46,7 +46,7 @@ CRGB LEDcolor;
 int count = 0;
 String WPI[] = {"/", ".", "-", "-", "/", ".", "-", "-", ".", "/", ".", ".", "/"}; //this can be any amount of dashes, dots or spaces, like .--..-.--...- idk what this is but seperate it and itll work
 int arraySize = sizeof(WPI) / sizeof(WPI[0]);
-bool virgin = true;
+bool isthisnew = true;
 bool isBlack = NULL;
 CRGB test;
 int offset = 0;
@@ -138,7 +138,7 @@ void loop()
   //Serial.println(String(LEDcolor == CRGB::Black));
   //Serial.println("spacetimebool: " + String(spacetimedone));
 
-  //so it knows when to activate virgin first time boolean
+  //so it knows when to activate isthisnew first time boolean
   lastWatchaDoing = watchaDoing;
 
 
@@ -169,8 +169,8 @@ void loop()
     {
       //Serial.println("watchadoing: " + String(watchaDoing));
       //Serial.println("lastwatchadoing: " + String(lastWatchaDoing));
-      virgin = true;
-      //Serial.println("virgin run");
+      isthisnew = true;
+      //Serial.println("isthisnew run");
     }
     WPIMorseCode();
     digitalWrite(4, HIGH);
@@ -184,8 +184,8 @@ void loop()
     {
       //Serial.println("watchadoing: " + String(watchaDoing));
       //Serial.println("lastwatchadoing: " + String(lastWatchaDoing));
-      //Serial.println("virgin 2 run");
-      virgin = true;
+      //Serial.println("isthisnew 2 run");
+      isthisnew = true;
     }
     WPIColors();
     Serial.println("writing");
@@ -198,7 +198,7 @@ void loop()
   {
     if (lastWatchaDoing != watchaDoing)
     {
-      virgin = true;
+      isthisnew = true;
     }
     PRIDEmonthYEEEAAAAHH();
     digitalWrite(4, HIGH);
@@ -224,12 +224,12 @@ void setLEDS(CRGB color, int brightness)
 void WPIMorseCode()
 {
   //if its your first time doing morse func, reset timer
-  if (virgin)
+  if (isthisnew)
   {
     count = 0;
     LEDstartTime = millis();
     LEDelapsedTime = 0;
-    virgin = false;
+    isthisnew = false;
     isBlack = NULL;
   }
   //if we are a dot, dot amount of time on the cap
@@ -308,13 +308,13 @@ void WPIMorseCode()
 void WPIColors()
 {
   //Serial.println(offset);
-  if (virgin)
+  if (isthisnew)
   {
     LEDstartTime = millis();
     LEDelapsedTime = 0;
     offset = 0;
-    virgin = false;
-    //Serial.print("virgin run");
+    isthisnew = false;
+    //Serial.print("isthisnew run");
   }
   //because it isnt one single color and a complex amount of 
   //colors, manually set strip rather than call a func to do so
@@ -342,12 +342,12 @@ void WPIColors()
 //le rainbow
 void PRIDEmonthYEEEAAAAHH()
 {
-  if (virgin)
+  if (isthisnew)
   {
     LEDstartTime = millis();
     LEDelapsedTime = 0;
     offset = 0;
-    virgin = false;
+    isthisnew = false;
   }
   for (int i = 0; i < NUM_LEDS; i++) {
     LEDelapsedTime = millis() - LEDstartTime;
